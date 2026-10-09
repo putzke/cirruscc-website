@@ -596,7 +596,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   100% { filter: drop-shadow(0 2px 8px rgba(26,111,174,0.10)); }
 }
 .nav-logo-img {
-  height: 54px;
+  height: 70px;
   width: auto;
   display: block;
   opacity: 0;
@@ -605,7 +605,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   will-change: transform, opacity;
 }
 .nav-logo svg {
-  height: 64px;
+  height: 70px;
   width: auto;
   display: block;
   opacity: 0;
@@ -702,6 +702,92 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
 }
+
+/* ── Brand Story Section ─────────────────────────────── */
+.brand-story-section {
+  padding: 5rem 0 4rem;
+  background: var(--paper);
+}
+.brand-story-inner {
+  max-width: 1100px;
+}
+.brand-story-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.brand-card {
+  background: #fff;
+  border: 1px solid rgba(31,122,156,0.12);
+  border-radius: 12px;
+  padding: 1.75rem 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: box-shadow 0.2s;
+}
+.brand-card:hover {
+  box-shadow: 0 4px 20px rgba(31,122,156,0.12);
+}
+.brand-card-wide {
+  grid-column: 1 / -1;
+}
+.brand-card-icon {
+  width: 56px;
+  height: 40px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+.brand-card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.brand-card-title {
+  font-family: var(--font-display, 'Michroma', sans-serif);
+  font-size: 1.05rem;
+  color: var(--cc-ink, #141A24);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+.brand-card-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--cc-sky, #35A6C9);
+  margin: 0 0 0.5rem;
+}
+.brand-card-body {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-muted, #5A6573);
+  margin: 0;
+}
+.cta-mailto-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.cta-mailto-btn {
+  display: inline-block;
+  font-size: 1.05rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+@media (max-width: 700px) {
+  .brand-story-grid {
+    grid-template-columns: 1fr;
+  }
+  .brand-card-wide {
+    grid-column: 1;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -729,7 +815,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
       <a href="#client-portal" class="nav-link">Client Portal</a>
       <a href="#founder" class="nav-link">Meet the founder</a>
     </div>
-    <a href="#early-access" class="nav-cta">Request early access</a>
+    <a href="mailto:putzke@hotmail.com?subject=Request%20a%20Cirrus%20Cc%20Demo" class="nav-cta">Request early access</a>
   </div>
 </nav>
 
@@ -1212,6 +1298,95 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 
 <!-- ══ MEET THE FOUNDER ════════════════════════════════════════ -->
+
+<!-- ══ BRAND STORY ══════════════════════════════════════════════════════════ -->
+<section class="section brand-story-section" aria-labelledby="brand-story-heading">
+  <div class="container brand-story-inner">
+
+    <p class="eyebrow" style="text-align:center">The name behind the name</p>
+    <h2 id="brand-story-heading" class="serif" style="text-align:center;margin-bottom:2.5rem">Every layer means something</h2>
+
+    <div class="brand-story-grid">
+
+      <!-- Card 1: Cirrus cloud -->
+      <div class="brand-card">
+        <div class="brand-card-icon">
+          <svg viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 24 Q16 8 28 14 Q36 6 48 16 Q56 10 62 18" stroke="var(--cc-sky)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M8 28 Q20 16 32 20 Q40 12 52 22 Q58 16 64 22" stroke="var(--cc-cirrus)" stroke-width="2" stroke-linecap="round" fill="none" stroke-opacity="0.5"/>
+          </svg>
+        </div>
+        <h3 class="brand-card-title">Cirrus</h3>
+        <p class="brand-card-label">The highest cloud</p>
+        <p class="brand-card-body">In meteorology, cirrus clouds form at altitude — thin, high, and far-reaching. Cirrus Cc sits above the day-to-day noise of public involvement work, giving your team and your client a clear, high-level view of the full engagement landscape across every active project.</p>
+      </div>
+
+      <!-- Card 2: Cc meteorological symbol -->
+      <div class="brand-card">
+        <div class="brand-card-icon">
+          <svg viewBox="0 0 64 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 26 Q18 8 30 18 Q38 4 52 16 Q58 10 62 14" stroke="var(--cc-sky)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M56 12 Q63 8 64 8" stroke="var(--cc-sky)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <h3 class="brand-card-title">Cc</h3>
+        <p class="brand-card-label">WMO symbol for cirrocumulus clouds</p>
+        <p class="brand-card-body">That wisp above the compass in our logo isn't decoration — it's the actual World Meteorological Organization symbol for cirrocumulus, the highest cloud genus in the standard classification system. A nod to the meteorology roots of the founder, and a mark that the platform operates at altitude: above spreadsheets, above email threads, above the noise.</p>
+      </div>
+
+      <!-- Card 3: Carbon copy -->
+      <div class="brand-card">
+        <div class="brand-card-icon">
+          <svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="4" y="4" width="56" height="36" rx="3" stroke="var(--cc-cirrus)" stroke-width="2.5"/>
+            <path d="M4 12 L32 26 L60 12" stroke="var(--cc-cirrus)" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="8" y="38" font-family="Michroma,sans-serif" font-size="8" fill="var(--cc-sky)">Cc:</text>
+          </svg>
+        </div>
+        <h3 class="brand-card-title">Cc:</h3>
+        <p class="brand-card-label">Carbon copy — your client stays in the loop</p>
+        <p class="brand-card-body">Before email, "cc" meant a carbon copy — an exact duplicate sent to the people who needed to stay informed. The PI Client Portal is that idea made live: your client receives a real-time copy of your engagement activity on their project, exactly as it's logged. No quarterly PDF summaries. No waiting. They're always cc'd.</p>
+      </div>
+
+      <!-- Card 4: Consultant to Client -->
+      <div class="brand-card">
+        <div class="brand-card-icon">
+          <svg viewBox="0 0 72 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="14" cy="14" r="8" stroke="var(--cc-cirrus)" stroke-width="2.5"/>
+            <path d="M5 36 Q14 26 23 36" stroke="var(--cc-cirrus)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <circle cx="58" cy="14" r="8" stroke="var(--cc-sky)" stroke-width="2.5"/>
+            <path d="M49 36 Q58 26 67 36" stroke="var(--cc-sky)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <line x1="26" y1="16" x2="44" y2="16" stroke="var(--cc-amber)" stroke-width="2" marker-end="url(#ccarr)"/>
+            <defs><marker id="ccarr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="var(--cc-amber)"/></marker></defs>
+          </svg>
+        </div>
+        <h3 class="brand-card-title">Consultant to Client</h3>
+        <p class="brand-card-label">The relationship every feature is built around</p>
+        <p class="brand-card-body">Cc also stands for the most important relationship in transportation PI work: the PI consultant and the agency client. Every feature — the registry, the report editor, the Client Portal — is designed around that handoff. Your workflow, visible to the client who commissioned it, in real time.</p>
+      </div>
+
+      <!-- Card 5: COMPASS / compass logo — full-width -->
+      <div class="brand-card brand-card-wide">
+        <div class="brand-card-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="32" cy="32" r="24" stroke="var(--cc-ink)" stroke-width="2"/>
+            <line x1="8" y1="32" x2="56" y2="32" stroke="var(--cc-ink)" stroke-width="1.5" stroke-opacity="0.28"/>
+            <path d="M32 8 A24 24 0 0 1 55 21" fill="none" stroke="var(--cc-cirrus)" stroke-width="5" stroke-linecap="round"/>
+            <path d="M27 3 A30 30 0 0 1 59 18 Q62 22 66 20" fill="none" stroke="var(--cc-sky)" stroke-width="2.2" stroke-linecap="round"/>
+            <polygon points="42.4,21.6 33.9,33.9 30.1,30.1" fill="var(--cc-pointer)"/>
+            <polygon points="24.5,40 33.9,33.9 30.1,30.1" fill="#3A4250"/>
+            <circle cx="32" cy="32" r="2.5" fill="var(--cc-ink)"/>
+          </svg>
+        </div>
+        <h3 class="brand-card-title">The compass still points the way</h3>
+        <p class="brand-card-label">COMPASS &mdash; Community Outreach, Management, Planning and Stakeholder Suite</p>
+        <p class="brand-card-body">The compass in our mark carries the DNA of this platform's origin. The needle points toward the next right step in the PI process — and the cirrus wisp riding above it is simultaneously the WMO cloud symbol and the visual bridge between the consultant's world and the client's. Pointing in the right direction, at altitude, with clarity. That's what Cirrus Cc is built to do.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section class="section founder-section" id="founder" aria-labelledby="founder-heading" style="background:var(--sky-light)">
   <div class="container">
     <p class="eyebrow">Meet the founder</p>
@@ -1247,11 +1422,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   <h2 id="cta-heading" class="serif">Be among the first to use it</h2>
   <p>Cirrus Cc is in active development. Early access users will shape the product — and receive founding member pricing when we launch.</p>
 
-  <form class="cta-form" id="cta-form" onsubmit="handleSignup(event, 'cta-form')">
-    <input type="email" placeholder="your@email.com" required aria-label="Email address">
-    <button type="submit" class="btn-primary">Request access</button>
-  </form>
-  <p class="cta-note">No commitment. We'll reach out when early access opens.</p>
+  <div class="cta-mailto-wrap">
+    <a href="mailto:putzke@hotmail.com?subject=Request%20a%20Cirrus%20Cc%20Demo" class="btn-primary cta-mailto-btn">Request a demo &rarr;</a>
+    <p class="cta-note">Send us an email — we'll get back to you within one business day.</p>
+  </div>
 </section>
 
 <!-- ══ FOOTER ═══════════════════════════════════════════════════ -->
