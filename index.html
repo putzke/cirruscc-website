@@ -842,21 +842,46 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   transition: box-shadow 0.2s;
 }
 
-/* ── APP SNAPSHOTS SECTION ────────────────────────────────────── */
+/* ── APP SNAPSHOTS CAROUSEL ───────────────────────────────────── */
 .snapshots-section {
   background: #fff;
   border-top: 1px solid var(--rule);
 }
 .snapshots-intro {
   max-width: 600px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
-.snapshots-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+/* Carousel wrapper */
+.snap-carousel {
+  position: relative;
 }
-.snap-item {}
+/* Slide track — only one slide visible at a time */
+.snap-track {
+  position: relative;
+  min-height: 1px; /* collapses if all children are absolute */
+}
+.snap-slide {
+  display: none;
+  flex-direction: row;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+.snap-slide.is-active {
+  display: flex;
+}
+/* Left col: frame */
+.snap-slide-frame {
+  flex: 1 1 58%;
+  min-width: 0;
+}
+/* Right col: label + caption + nav */
+.snap-slide-meta {
+  flex: 0 0 34%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
 .snap-label {
   display: inline-block;
   font-size: 11px;
@@ -868,7 +893,64 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   border: 1px solid var(--sky-mid);
   border-radius: 20px;
   padding: 3px 10px;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+.snap-caption {
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.6;
+}
+.snap-caption strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+/* Prev / Next arrows */
+.snap-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.snap-nav button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sky-mid);
+  background: #fff;
+  color: var(--ink);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.snap-nav button:hover {
+  background: var(--sky-light);
+  border-color: var(--sky);
+}
+.snap-nav button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+/* Dot indicators */
+.snap-dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 1rem;
+}
+.snap-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sky-mid);
+  transition: background 0.2s, transform 0.2s;
+}
+.snap-dot.is-active {
+  background: var(--sky);
+  transform: scale(1.25);
 }
 /* Browser-chrome frame wrapper */
 .snap-frame {
@@ -899,7 +981,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   background: #fc615d;
   box-shadow: 16px 0 0 #fdbc40, 32px 0 0 #34c749;
 }
-/* The image / placeholder area — 16:10 aspect ratio */
+/* Image area — desktop 16:10 */
 .snap-img-wrap {
   aspect-ratio: 16 / 10;
   overflow: hidden;
@@ -916,42 +998,33 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   object-position: top left;
   display: block;
 }
-/* Placeholder shown when no image is present */
-.snap-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  height: 100%;
-  color: var(--slate);
-  font-family: 'Saira', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  opacity: 0.5;
-  user-select: none;
+/* Mobile frame — portrait, no browser chrome */
+.snap-frame--mobile {
+  width: min(200px, 48%);
+  border-radius: 24px;
+  margin: 0 auto;
 }
-.snap-placeholder svg {
-  opacity: 0.35;
+.snap-img-wrap--mobile {
+  aspect-ratio: 9 / 19.5;
+  border-radius: 0;
 }
-.snap-caption {
-  margin-top: 0.75rem;
-  font-size: 14px;
-  color: var(--slate);
-  line-height: 1.5;
-}
-.snap-caption strong {
-  display: block;
-  color: var(--ink);
-  font-weight: 600;
-  margin-bottom: 0.15rem;
-}
-@media (max-width: 720px) {
-  .snapshots-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+/* Responsive: stack on narrow screens */
+@media (max-width: 700px) {
+  .snap-slide {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .snap-slide-frame {
+    flex: none;
+    width: 100%;
+  }
+  .snap-slide-meta {
+    flex: none;
+    width: 100%;
+    padding-top: 0;
+  }
+  .snap-frame--mobile {
+    width: min(180px, 55%);
   }
 }
 
@@ -1499,89 +1572,166 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
       <p style="color:var(--slate)">Every screen was designed around a real PI workflow — from first stakeholder contact to FHWA-ready report.</p>
     </div>
 
-    <div class="snapshots-grid">
+    <div class="snap-carousel" id="snap-carousel">
+      <div class="snap-track" id="snap-track">
 
-      <!-- 1 — Project Dashboard -->
-      <div class="snap-item">
-        <span class="snap-label">Project Dashboard</span>
-        <a class="snap-trigger" href="#" aria-label="View full-size Project Dashboard screenshot">
-        <div class="snap-frame">
-          <div class="snap-img-wrap">
-            <img src="images/snap-dashboard.jpg" alt="Cirrus Cc Project Dashboard showing active projects, stakeholder stats, deliverable progress, and interaction channels">
+        <!-- Slide 1 — Project Dashboard -->
+        <div class="snap-slide is-active" data-index="0">
+          <div class="snap-slide-frame">
+            <a class="snap-trigger" href="#" aria-label="View full-size Project Dashboard screenshot">
+              <div class="snap-frame">
+                <div class="snap-img-wrap">
+                  <img src="images/snap-dashboard.jpg" alt="Cirrus Cc Project Dashboard showing active projects, stakeholder stats, deliverable progress, and interaction channels">
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="snap-slide-meta">
+            <span class="snap-label">Project Dashboard</span>
+            <div class="snap-caption">
+              <strong>At-a-glance project status</strong>
+              Active projects, open issues, recent interactions, and deliverable milestones — all visible without opening a report.
+            </div>
+            <div class="snap-nav">
+              <button class="snap-prev" aria-label="Previous screenshot" disabled>&#8592;</button>
+              <button class="snap-next" aria-label="Next screenshot">&#8594;</button>
+            </div>
+            <div class="snap-dots">
+              <span class="snap-dot is-active"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+            </div>
           </div>
         </div>
-        </a>
-        <div class="snap-caption">
-          <strong>At-a-glance project status</strong>
-          Active projects, open issues, recent interactions, and deliverable milestones — all visible without opening a report.
-        </div>
-      </div>
 
-      <!-- 2 — Stakeholder Contacts -->
-      <div class="snap-item">
-        <span class="snap-label">Stakeholder Contacts</span>
-        <a class="snap-trigger" href="#" aria-label="View full-size Stakeholder Contacts screenshot">
-        <div class="snap-frame">
-          <div class="snap-img-wrap">
-            <img src="images/snap-contacts.jpg" alt="Cirrus Cc Master Stakeholder List showing contact roster with interaction history panel open">
+        <!-- Slide 2 — Stakeholder Contacts -->
+        <div class="snap-slide" data-index="1">
+          <div class="snap-slide-frame">
+            <a class="snap-trigger" href="#" aria-label="View full-size Stakeholder Contacts screenshot">
+              <div class="snap-frame">
+                <div class="snap-img-wrap">
+                  <img src="images/snap-contacts.jpg" alt="Cirrus Cc Master Stakeholder List showing contact roster with interaction history panel open">
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="snap-slide-meta">
+            <span class="snap-label">Stakeholder Contacts</span>
+            <div class="snap-caption">
+              <strong>Your entire stakeholder universe, organized</strong>
+              Every contact tied to a project, agency, and full interaction history — with LEP and Environmental Justice flags built in.
+            </div>
+            <div class="snap-nav">
+              <button class="snap-prev" aria-label="Previous screenshot">&#8592;</button>
+              <button class="snap-next" aria-label="Next screenshot">&#8594;</button>
+            </div>
+            <div class="snap-dots">
+              <span class="snap-dot"></span>
+              <span class="snap-dot is-active"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+            </div>
           </div>
         </div>
-        </a>
-        <div class="snap-caption">
-          <strong>Your entire stakeholder universe, organized</strong>
-          Every contact tied to a project, agency, and full interaction history — with LEP and Environmental Justice flags built in.
-        </div>
-      </div>
 
-      <!-- 3 — Interaction Log (filtered) -->
-      <div class="snap-item">
-        <span class="snap-label">Interaction Log</span>
-        <a class="snap-trigger" href="#" aria-label="View full-size Interaction Log screenshot">
-        <div class="snap-frame">
-          <div class="snap-img-wrap">
-            <img src="images/snap-views.jpg" alt="Cirrus Cc Interaction Log filtered by complaint type and email channel">
+        <!-- Slide 3 — Interaction Log -->
+        <div class="snap-slide" data-index="2">
+          <div class="snap-slide-frame">
+            <a class="snap-trigger" href="#" aria-label="View full-size Interaction Log screenshot">
+              <div class="snap-frame">
+                <div class="snap-img-wrap">
+                  <img src="images/snap-views.jpg" alt="Cirrus Cc Interaction Log filtered by complaint type and email channel">
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="snap-slide-meta">
+            <span class="snap-label">Interaction Log</span>
+            <div class="snap-caption">
+              <strong>Filter and slice the way you think</strong>
+              Filter interactions by channel, nature, subject, or stakeholder — pull a complaint log, a comment-period summary, or an EJ contact list in seconds.
+            </div>
+            <div class="snap-nav">
+              <button class="snap-prev" aria-label="Previous screenshot">&#8592;</button>
+              <button class="snap-next" aria-label="Next screenshot">&#8594;</button>
+            </div>
+            <div class="snap-dots">
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot is-active"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+            </div>
           </div>
         </div>
-        </a>
-        <div class="snap-caption">
-          <strong>Filter and slice the way you think</strong>
-          Filter interactions by channel, nature, subject, or stakeholder — pull a complaint log, a comment-period summary, or an EJ contact list in seconds.
-        </div>
-      </div>
 
-      <!-- 4 — PI Report Package -->
-      <div class="snap-item">
-        <span class="snap-label">PI Report Package</span>
-        <a class="snap-trigger" href="#" aria-label="View full-size PI Report Package screenshot">
-        <div class="snap-frame">
-          <div class="snap-img-wrap">
-            <img src="images/snap-report.jpg" alt="Cirrus Cc PI Report Package showing AI-drafted executive summary for SR-154 Corridor Safety Improvements">
+        <!-- Slide 4 — PI Report Package -->
+        <div class="snap-slide" data-index="3">
+          <div class="snap-slide-frame">
+            <a class="snap-trigger" href="#" aria-label="View full-size PI Report Package screenshot">
+              <div class="snap-frame">
+                <div class="snap-img-wrap">
+                  <img src="images/snap-report.jpg" alt="Cirrus Cc PI Report Package showing AI-drafted executive summary for SR-154 Corridor Safety Improvements">
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="snap-slide-meta">
+            <span class="snap-label">PI Report Package</span>
+            <div class="snap-caption">
+              <strong>Client-ready deliverables, AI-drafted from your data</strong>
+              The PI Report Package turns logged interactions, comments, and commitments into a FHWA-compliant narrative — branded and ready to submit.
+            </div>
+            <div class="snap-nav">
+              <button class="snap-prev" aria-label="Previous screenshot">&#8592;</button>
+              <button class="snap-next" aria-label="Next screenshot">&#8594;</button>
+            </div>
+            <div class="snap-dots">
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot is-active"></span>
+              <span class="snap-dot"></span>
+            </div>
           </div>
         </div>
-        </a>
-        <div class="snap-caption">
-          <strong>Client-ready deliverables, AI-drafted from your data</strong>
-          The PI Report Package turns logged interactions, comments, and commitments into a FHWA-compliant narrative — branded and ready to submit.
-        </div>
-      </div>
 
-    </div>
-
-    <!-- 5 — Mobile app (portrait, centered) -->
-    <div style="margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:1rem;">
-      <span class="snap-label">Mobile Field App</span>
-      <a class="snap-trigger" href="#" aria-label="View full-size Mobile Field App screenshot">
-      <div class="snap-frame snap-frame--mobile" style="width:min(320px,80%);border-radius:28px;">
-        <div class="snap-img-wrap" style="aspect-ratio:9/19.5;border-radius:0;">
-          <img src="images/snap-mobile.png" alt="Cirrus Cc mobile app showing project dashboard with recent interactions on iOS" style="object-position:top center;">
+        <!-- Slide 5 — Mobile Field App -->
+        <div class="snap-slide" data-index="4">
+          <div class="snap-slide-frame" style="display:flex;justify-content:center;">
+            <a class="snap-trigger" href="#" aria-label="View full-size Mobile Field App screenshot" style="display:inline-block;">
+              <div class="snap-frame snap-frame--mobile">
+                <div class="snap-img-wrap snap-img-wrap--mobile">
+                  <img src="images/snap-mobile.png" alt="Cirrus Cc mobile app showing project dashboard with recent interactions on iOS" style="object-position:top center;">
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="snap-slide-meta">
+            <span class="snap-label">Mobile Field App</span>
+            <div class="snap-caption">
+              <strong>Log from the field, not just the office</strong>
+              The mobile app keeps your team logging calls, emails, and door-to-door contacts in real time — synced instantly to the project record.
+            </div>
+            <div class="snap-nav">
+              <button class="snap-prev" aria-label="Previous screenshot">&#8592;</button>
+              <button class="snap-next" aria-label="Next screenshot" disabled>&#8594;</button>
+            </div>
+            <div class="snap-dots">
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot"></span>
+              <span class="snap-dot is-active"></span>
+            </div>
+          </div>
         </div>
-      </div>
-      </a>
-      <div class="snap-caption" style="max-width:360px;text-align:center;">
-        <strong>Log from the field, not just the office</strong>
-        The mobile app keeps your team logging calls, emails, and door-to-door contacts in real time — synced instantly to the project record.
-      </div>
-    </div>
+
+      </div><!-- /snap-track -->
+    </div><!-- /snap-carousel -->
 
   </div>
 </section>
@@ -1767,41 +1917,62 @@ function handleSignup(e, formId) {
 
 <script>
 (function () {
+  /* ── LIGHTBOX ─────────────────────────────── */
   var overlay = document.getElementById('lb');
   var lbImg   = document.getElementById('lb-img');
   var lbClose = document.getElementById('lb-close');
 
-  function open(src, alt) {
+  function lbOpen(src, alt) {
     lbImg.src = src;
     lbImg.alt = alt || '';
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     lbClose.focus();
   }
-
-  function close() {
+  function lbClose_fn() {
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
     lbImg.src = '';
   }
 
-  // Clicks on trigger links
   document.querySelectorAll('.snap-trigger').forEach(function (el) {
     el.addEventListener('click', function (e) {
       e.preventDefault();
       var img = el.querySelector('img');
-      if (img) open(img.src, img.alt);
+      if (img) lbOpen(img.src, img.alt);
     });
   });
-
-  // Close on overlay background or close button
   overlay.addEventListener('click', function (e) {
-    if (e.target === overlay || e.target === lbClose) close();
+    if (e.target === overlay || e.target === lbClose) lbClose_fn();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) lbClose_fn();
   });
 
-  // Close on Escape
+  /* ── CAROUSEL ─────────────────────────────── */
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.snap-slide'));
+  var total  = slides.length;
+  var current = 0;
+
+  function goTo(n) {
+    slides[current].classList.remove('is-active');
+    current = (n + total) % total;
+    slides[current].classList.add('is-active');
+  }
+
+  // Wire up every prev/next button (each slide has its own pair)
+  document.querySelectorAll('.snap-prev').forEach(function (btn) {
+    btn.addEventListener('click', function () { goTo(current - 1); });
+  });
+  document.querySelectorAll('.snap-next').forEach(function (btn) {
+    btn.addEventListener('click', function () { goTo(current + 1); });
+  });
+
+  // Keyboard arrow navigation when carousel is in view
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    if (overlay.classList.contains('is-open')) return; // lightbox has focus
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
   });
 })();
 </script>
