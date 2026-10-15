@@ -788,6 +788,60 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   }
 }
 
+/* ── LIGHTBOX ─────────────────────────────────────────────────── */
+.lb-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(13,27,42,0.88);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  cursor: zoom-out;
+}
+.lb-overlay.is-open {
+  display: flex;
+}
+.lb-overlay img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 64px rgba(0,0,0,0.5);
+  cursor: default;
+  object-fit: contain;
+}
+.lb-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.lb-close:hover { background: rgba(255,255,255,0.24); }
+/* Make snap frames feel clickable */
+.snap-trigger {
+  cursor: zoom-in;
+  display: block;
+}
+.snap-trigger:hover .snap-frame {
+  box-shadow: 0 4px 16px rgba(13,27,42,0.14), 0 12px 48px rgba(13,27,42,0.18);
+  transition: box-shadow 0.2s;
+}
+
 /* ── APP SNAPSHOTS SECTION ────────────────────────────────────── */
 .snapshots-section {
   background: #fff;
@@ -1450,11 +1504,13 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
       <!-- 1 — Project Dashboard -->
       <div class="snap-item">
         <span class="snap-label">Project Dashboard</span>
+        <a class="snap-trigger" href="#" aria-label="View full-size Project Dashboard screenshot">
         <div class="snap-frame">
           <div class="snap-img-wrap">
             <img src="images/snap-dashboard.jpg" alt="Cirrus Cc Project Dashboard showing active projects, stakeholder stats, deliverable progress, and interaction channels">
           </div>
         </div>
+        </a>
         <div class="snap-caption">
           <strong>At-a-glance project status</strong>
           Active projects, open issues, recent interactions, and deliverable milestones — all visible without opening a report.
@@ -1464,11 +1520,13 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
       <!-- 2 — Stakeholder Contacts -->
       <div class="snap-item">
         <span class="snap-label">Stakeholder Contacts</span>
+        <a class="snap-trigger" href="#" aria-label="View full-size Stakeholder Contacts screenshot">
         <div class="snap-frame">
           <div class="snap-img-wrap">
             <img src="images/snap-contacts.jpg" alt="Cirrus Cc Master Stakeholder List showing contact roster with interaction history panel open">
           </div>
         </div>
+        </a>
         <div class="snap-caption">
           <strong>Your entire stakeholder universe, organized</strong>
           Every contact tied to a project, agency, and full interaction history — with LEP and Environmental Justice flags built in.
@@ -1478,11 +1536,13 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
       <!-- 3 — Interaction Log (filtered) -->
       <div class="snap-item">
         <span class="snap-label">Interaction Log</span>
+        <a class="snap-trigger" href="#" aria-label="View full-size Interaction Log screenshot">
         <div class="snap-frame">
           <div class="snap-img-wrap">
             <img src="images/snap-views.jpg" alt="Cirrus Cc Interaction Log filtered by complaint type and email channel">
           </div>
         </div>
+        </a>
         <div class="snap-caption">
           <strong>Filter and slice the way you think</strong>
           Filter interactions by channel, nature, subject, or stakeholder — pull a complaint log, a comment-period summary, or an EJ contact list in seconds.
@@ -1492,11 +1552,13 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
       <!-- 4 — PI Report Package -->
       <div class="snap-item">
         <span class="snap-label">PI Report Package</span>
+        <a class="snap-trigger" href="#" aria-label="View full-size PI Report Package screenshot">
         <div class="snap-frame">
           <div class="snap-img-wrap">
             <img src="images/snap-report.jpg" alt="Cirrus Cc PI Report Package showing AI-drafted executive summary for SR-154 Corridor Safety Improvements">
           </div>
         </div>
+        </a>
         <div class="snap-caption">
           <strong>Client-ready deliverables, AI-drafted from your data</strong>
           The PI Report Package turns logged interactions, comments, and commitments into a FHWA-compliant narrative — branded and ready to submit.
@@ -1508,11 +1570,13 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     <!-- 5 — Mobile app (portrait, centered) -->
     <div style="margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:1rem;">
       <span class="snap-label">Mobile Field App</span>
+      <a class="snap-trigger" href="#" aria-label="View full-size Mobile Field App screenshot">
       <div class="snap-frame snap-frame--mobile" style="width:min(320px,80%);border-radius:28px;">
         <div class="snap-img-wrap" style="aspect-ratio:9/19.5;border-radius:0;">
           <img src="images/snap-mobile.png" alt="Cirrus Cc mobile app showing project dashboard with recent interactions on iOS" style="object-position:top center;">
         </div>
       </div>
+      </a>
       <div class="snap-caption" style="max-width:360px;text-align:center;">
         <strong>Log from the field, not just the office</strong>
         The mobile app keeps your team logging calls, emails, and door-to-door contacts in real time — synced instantly to the project record.
@@ -1695,5 +1759,51 @@ function handleSignup(e, formId) {
 }
 </script>
 
+<!-- ── LIGHTBOX OVERLAY ─────────────────────────────────────── -->
+<div class="lb-overlay" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+  <button class="lb-close" id="lb-close" aria-label="Close preview">&#x2715;</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById('lb');
+  var lbImg   = document.getElementById('lb-img');
+  var lbClose = document.getElementById('lb-close');
+
+  function open(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function close() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  // Clicks on trigger links
+  document.querySelectorAll('.snap-trigger').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var img = el.querySelector('img');
+      if (img) open(img.src, img.alt);
+    });
+  });
+
+  // Close on overlay background or close button
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay || e.target === lbClose) close();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+  });
+})();
+</script>
 </body>
 </html>
