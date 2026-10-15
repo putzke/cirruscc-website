@@ -825,16 +825,16 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   background: #f0f2f5;
   position: relative;
 }
-/* Simulated browser bar */
-.snap-frame::before {
+/* Simulated browser bar — desktop frames only */
+.snap-frame:not(.snap-frame--mobile)::before {
   content: '';
   display: block;
   height: 28px;
   background: #e8eaed;
   border-bottom: 1px solid #d0d3d8;
 }
-/* Traffic lights */
-.snap-frame::after {
+/* Traffic lights — desktop frames only */
+.snap-frame:not(.snap-frame--mobile)::after {
   content: '';
   position: absolute;
   top: 9px;
@@ -1452,11 +1452,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
         <span class="snap-label">Project Dashboard</span>
         <div class="snap-frame">
           <div class="snap-img-wrap">
-            <!-- Replace with: <img src="images/snap-dashboard.png" alt="Cirrus Cc Project Dashboard"> -->
-            <div class="snap-placeholder">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-              Screenshot coming soon
-            </div>
+            <img src="images/snap-dashboard.jpg" alt="Cirrus Cc Project Dashboard showing active projects, stakeholder stats, deliverable progress, and interaction channels">
           </div>
         </div>
         <div class="snap-caption">
@@ -1470,56 +1466,59 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
         <span class="snap-label">Stakeholder Contacts</span>
         <div class="snap-frame">
           <div class="snap-img-wrap">
-            <!-- Replace with: <img src="images/snap-contacts.png" alt="Cirrus Cc Stakeholder Contacts"> -->
-            <div class="snap-placeholder">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Screenshot coming soon
-            </div>
+            <img src="images/snap-contacts.jpg" alt="Cirrus Cc Master Stakeholder List showing contact roster with interaction history panel open">
           </div>
         </div>
         <div class="snap-caption">
           <strong>Your entire stakeholder universe, organized</strong>
-          Every contact tied to a project, agency, and interaction history — with LEP and Environmental Justice flags built in.
+          Every contact tied to a project, agency, and full interaction history — with LEP and Environmental Justice flags built in.
         </div>
       </div>
 
-      <!-- 3 — Views Panel -->
+      <!-- 3 — Interaction Log (filtered) -->
       <div class="snap-item">
-        <span class="snap-label">Views Panel</span>
+        <span class="snap-label">Interaction Log</span>
         <div class="snap-frame">
           <div class="snap-img-wrap">
-            <!-- Replace with: <img src="images/snap-views.png" alt="Cirrus Cc Views Panel"> -->
-            <div class="snap-placeholder">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/><circle cx="2" cy="6" r="1.5" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="10" cy="18" r="1.5" fill="currentColor" stroke="none"/></svg>
-              Screenshot coming soon
-            </div>
+            <img src="images/snap-views.jpg" alt="Cirrus Cc Interaction Log filtered by complaint type and email channel">
           </div>
         </div>
         <div class="snap-caption">
           <strong>Filter and slice the way you think</strong>
-          Saved views let you pull a corridor mailing list, a comment-period summary, or an EJ-flagged contact report in seconds.
+          Filter interactions by channel, nature, subject, or stakeholder — pull a complaint log, a comment-period summary, or an EJ contact list in seconds.
         </div>
       </div>
 
-      <!-- 4 — PI Report Editor -->
+      <!-- 4 — PI Report Package -->
       <div class="snap-item">
-        <span class="snap-label">PI Report Editor</span>
+        <span class="snap-label">PI Report Package</span>
         <div class="snap-frame">
           <div class="snap-img-wrap">
-            <!-- Replace with: <img src="images/snap-report.png" alt="Cirrus Cc PI Report Editor"> -->
-            <div class="snap-placeholder">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-              Screenshot coming soon
-            </div>
+            <img src="images/snap-report.jpg" alt="Cirrus Cc PI Report Package showing AI-drafted executive summary for SR-154 Corridor Safety Improvements">
           </div>
         </div>
         <div class="snap-caption">
           <strong>Client-ready deliverables, AI-drafted from your data</strong>
-          The PI Report Editor turns logged interactions, comments, and commitments into a FHWA-compliant narrative — reviewed and exported as a branded Word document.
+          The PI Report Package turns logged interactions, comments, and commitments into a FHWA-compliant narrative — branded and ready to submit.
         </div>
       </div>
 
     </div>
+
+    <!-- 5 — Mobile app (portrait, centered) -->
+    <div style="margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:1rem;">
+      <span class="snap-label">Mobile Field App</span>
+      <div class="snap-frame snap-frame--mobile" style="width:min(320px,80%);border-radius:28px;">
+        <div class="snap-img-wrap" style="aspect-ratio:9/19.5;border-radius:0;">
+          <img src="images/snap-mobile.png" alt="Cirrus Cc mobile app showing project dashboard with recent interactions on iOS" style="object-position:top center;">
+        </div>
+      </div>
+      <div class="snap-caption" style="max-width:360px;text-align:center;">
+        <strong>Log from the field, not just the office</strong>
+        The mobile app keeps your team logging calls, emails, and door-to-door contacts in real time — synced instantly to the project record.
+      </div>
+    </div>
+
   </div>
 </section>
 
