@@ -788,6 +788,119 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   }
 }
 
+/* ── APP SNAPSHOTS SECTION ────────────────────────────────────── */
+.snapshots-section {
+  background: #fff;
+  border-top: 1px solid var(--rule);
+}
+.snapshots-intro {
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+}
+.snapshots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.snap-item {}
+.snap-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sky);
+  background: var(--sky-light);
+  border: 1px solid var(--sky-mid);
+  border-radius: 20px;
+  padding: 3px 10px;
+  margin-bottom: 0.7rem;
+}
+/* Browser-chrome frame wrapper */
+.snap-frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.07), 0 8px 32px rgba(13,27,42,0.10);
+  border: 1px solid var(--rule);
+  background: #f0f2f5;
+  position: relative;
+}
+/* Simulated browser bar */
+.snap-frame::before {
+  content: '';
+  display: block;
+  height: 28px;
+  background: #e8eaed;
+  border-bottom: 1px solid #d0d3d8;
+}
+/* Traffic lights */
+.snap-frame::after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fc615d;
+  box-shadow: 16px 0 0 #fdbc40, 32px 0 0 #34c749;
+}
+/* The image / placeholder area — 16:10 aspect ratio */
+.snap-img-wrap {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f2ed;
+  position: relative;
+}
+.snap-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+}
+/* Placeholder shown when no image is present */
+.snap-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+  color: var(--slate);
+  font-family: 'Saira', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+  user-select: none;
+}
+.snap-placeholder svg {
+  opacity: 0.35;
+}
+.snap-caption {
+  margin-top: 0.75rem;
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.5;
+}
+.snap-caption strong {
+  display: block;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+@media (max-width: 720px) {
+  .snapshots-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1296,6 +1409,119 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   </div>
 </section>
 
+
+<!-- ══ APP SNAPSHOTS ════════════════════════════════════════════ -->
+<!--
+  SCREENSHOT CAPTURE GUIDE
+  ════════════════════════
+  Recommended capture size: 1440 × 900 px  (16:10, standard laptop)
+  Browser zoom: 100% — do not zoom in or out before capturing
+  Browser chrome: hide bookmarks bar for a clean capture
+  Window: maximize to full 1440 px width, then crop to content area only
+  (exclude your OS taskbar / dock)
+
+  Recommended crops per view:
+  1. Project Dashboard  — full dashboard view, no modal open
+  2. Stakeholder Contacts — contacts list panel, ideally 8–10 rows visible
+  3. Views Panel        — a saved filter/view active, showing filtered results
+  4. PI Report Editor   — report with at least one AI-drafted section visible
+
+  File format: PNG (lossless, sharp text)
+  File names (place in /images/ folder alongside index.html):
+    snap-dashboard.png
+    snap-contacts.png
+    snap-views.png
+    snap-report.png
+
+  To activate: replace each <div class="snap-placeholder">…</div> block with:
+    <img src="images/snap-dashboard.png" alt="Cirrus Cc Project Dashboard">
+  (and the other three filenames accordingly)
+-->
+<section class="section snapshots-section" id="in-action" aria-labelledby="snapshots-heading">
+  <div class="container">
+    <div class="snapshots-intro">
+      <p class="eyebrow">Built for the way PI teams work</p>
+      <h2 id="snapshots-heading" class="serif" style="font-size:clamp(1.6rem,3vw,2.1rem);margin:0.5rem 0 0.75rem;letter-spacing:-0.02em;">Track, organize, analyze, deliver — in one place</h2>
+      <p style="color:var(--slate)">Every screen was designed around a real PI workflow — from first stakeholder contact to FHWA-ready report.</p>
+    </div>
+
+    <div class="snapshots-grid">
+
+      <!-- 1 — Project Dashboard -->
+      <div class="snap-item">
+        <span class="snap-label">Project Dashboard</span>
+        <div class="snap-frame">
+          <div class="snap-img-wrap">
+            <!-- Replace with: <img src="images/snap-dashboard.png" alt="Cirrus Cc Project Dashboard"> -->
+            <div class="snap-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Screenshot coming soon
+            </div>
+          </div>
+        </div>
+        <div class="snap-caption">
+          <strong>At-a-glance project status</strong>
+          Active projects, open issues, recent interactions, and deliverable milestones — all visible without opening a report.
+        </div>
+      </div>
+
+      <!-- 2 — Stakeholder Contacts -->
+      <div class="snap-item">
+        <span class="snap-label">Stakeholder Contacts</span>
+        <div class="snap-frame">
+          <div class="snap-img-wrap">
+            <!-- Replace with: <img src="images/snap-contacts.png" alt="Cirrus Cc Stakeholder Contacts"> -->
+            <div class="snap-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Screenshot coming soon
+            </div>
+          </div>
+        </div>
+        <div class="snap-caption">
+          <strong>Your entire stakeholder universe, organized</strong>
+          Every contact tied to a project, agency, and interaction history — with LEP and Environmental Justice flags built in.
+        </div>
+      </div>
+
+      <!-- 3 — Views Panel -->
+      <div class="snap-item">
+        <span class="snap-label">Views Panel</span>
+        <div class="snap-frame">
+          <div class="snap-img-wrap">
+            <!-- Replace with: <img src="images/snap-views.png" alt="Cirrus Cc Views Panel"> -->
+            <div class="snap-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/><circle cx="2" cy="6" r="1.5" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="10" cy="18" r="1.5" fill="currentColor" stroke="none"/></svg>
+              Screenshot coming soon
+            </div>
+          </div>
+        </div>
+        <div class="snap-caption">
+          <strong>Filter and slice the way you think</strong>
+          Saved views let you pull a corridor mailing list, a comment-period summary, or an EJ-flagged contact report in seconds.
+        </div>
+      </div>
+
+      <!-- 4 — PI Report Editor -->
+      <div class="snap-item">
+        <span class="snap-label">PI Report Editor</span>
+        <div class="snap-frame">
+          <div class="snap-img-wrap">
+            <!-- Replace with: <img src="images/snap-report.png" alt="Cirrus Cc PI Report Editor"> -->
+            <div class="snap-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+              Screenshot coming soon
+            </div>
+          </div>
+        </div>
+        <div class="snap-caption">
+          <strong>Client-ready deliverables, AI-drafted from your data</strong>
+          The PI Report Editor turns logged interactions, comments, and commitments into a FHWA-compliant narrative — reviewed and exported as a branded Word document.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ══ MEET THE FOUNDER ════════════════════════════════════════ -->
 
