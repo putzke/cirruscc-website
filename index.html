@@ -81,7 +81,7 @@ nav {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2.5rem;
-  height: 120px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -558,20 +558,72 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 800px) {
+  /* Nav */
+  .nav-inner { height: 64px; padding: 0 1.25rem; }
+
+  /* Hero */
   .hero-grid { grid-template-columns: 1fr; }
   .hero-visual { display: none; }
-  .features-grid { grid-template-columns: 1fr; }
+
+  /* Features */
+  .features-grid { grid-template-columns: 1fr 1fr; }
+
+  /* How it works */
   .steps { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .who-grid { grid-template-columns: 1fr; }
+
+  /* Who it's for */
+  .who-grid { grid-template-columns: 1fr 1fr; }
+
+  /* COMPASS acronym */
   .acronym-grid { grid-template-columns: repeat(3, 1fr); }
   .acronym-grid .acronym-letter:nth-child(3) { border-right: none; }
+
+  /* Client portal section — stack below text on mid screens */
+  .portal-grid { grid-template-columns: 1fr !important; }
+
+  /* Carousel — stack on tablet */
+  .snap-slide { flex-direction: column; gap: 1rem; }
+  .snap-slide-frame { flex: none; width: 100%; }
+  .snap-slide-meta { flex: none; width: 100%; padding-top: 0; }
 }
 
 @media (max-width: 540px) {
+  /* Nav */
+  .nav-inner { height: 56px; padding: 0 1rem; }
+  .nav-cta { padding: 7px 14px; font-size: 12px; }
+
+  /* Container breathing room */
+  .container { padding: 0 1rem; }
+  .section { padding: 3rem 0; }
+  .section-sm { padding: 2rem 0; }
+
+  /* Hero */
   .hero-form, .cta-form { flex-direction: column; }
+
+  /* Features — single col on phone */
+  .features-grid { grid-template-columns: 1fr; }
+
+  /* How it works */
   .steps { grid-template-columns: 1fr; }
-  .proof-list { gap: 1.25rem; }
+
+  /* Who it's for */
+  .who-grid { grid-template-columns: 1fr; }
+
+  /* COMPASS acronym — 2 col */
   .acronym-grid { grid-template-columns: 1fr 1fr; }
+  .acronym-grid .acronym-letter:nth-child(2) { border-right: none; }
+  .acronym-grid .acronym-letter:nth-child(4) { border-right: none; }
+  .a-letter { font-size: 2rem; }
+
+  /* Proof list */
+  .proof-list { gap: 1rem; }
+
+  /* Brand story */
+  .brand-story-grid { grid-template-columns: 1fr !important; }
+  .brand-card-wide { grid-column: 1 !important; }
+
+  /* Footer */
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }
 
 /* ── ACCESSIBILITY ── */
@@ -1008,21 +1060,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   aspect-ratio: 9 / 19.5;
   border-radius: 0;
 }
-/* Responsive: stack on narrow screens */
-@media (max-width: 700px) {
-  .snap-slide {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .snap-slide-frame {
-    flex: none;
-    width: 100%;
-  }
-  .snap-slide-meta {
-    flex: none;
-    width: 100%;
-    padding-top: 0;
-  }
+/* Mobile frame narrower on small phones */
+@media (max-width: 480px) {
   .snap-frame--mobile {
     width: min(180px, 55%);
   }
@@ -1346,7 +1385,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     <h2 id="portal-heading" class="serif" style="font-size:clamp(1.6rem,3vw,2.2rem);margin:0.5rem 0 0.75rem;letter-spacing:-0.02em;color:var(--ink)">Your client sees the work — in real time</h2>
     <p style="color:var(--slate);font-size:16px;line-height:1.7;max-width:640px;margin-bottom:2.5rem">Every other PI tool talks to the public or to the PI team. Cirrus Cc does something no competitor offers: a live <strong>PI Client Portal</strong> that gives your DOT, city or county client a secure, read-only window into engagement activity and deliverable progress on their specific project — updated as your team works, not when you write the quarterly report.</p>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start">
+    <div class="portal-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start">
 
       <!-- Left: capability bullets -->
       <div>
