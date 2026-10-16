@@ -47,6 +47,7 @@ body {
   color: var(--ink);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* prevent any element wider than viewport from causing a horizontal scrollbar */
 }
 
 /* ── TYPOGRAPHY ── */
@@ -465,7 +466,7 @@ nav {
 
 .acronym-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 0;
   text-align: center;
 }
@@ -574,9 +575,12 @@ footer {
   /* Who it's for */
   .who-grid { grid-template-columns: 1fr 1fr; }
 
-  /* COMPASS acronym */
-  .acronym-grid { grid-template-columns: repeat(3, 1fr); }
-  .acronym-grid .acronym-letter:nth-child(3) { border-right: none; }
+  /* COMPASS acronym — 7 cols → 4 cols at tablet */
+  .acronym-grid { grid-template-columns: repeat(4, 1fr); }
+  .acronym-grid .acronym-letter { border-right: 1px solid var(--sky-mid); }
+  .acronym-grid .acronym-letter:nth-child(4),
+  .acronym-grid .acronym-letter:nth-child(8) { border-right: none; }
+  .acronym-grid .acronym-letter:last-child { border-right: none; }
 
   /* Client portal section — stack below text on mid screens */
   .portal-grid { grid-template-columns: 1fr !important; }
@@ -609,11 +613,13 @@ footer {
   /* Who it's for */
   .who-grid { grid-template-columns: 1fr; }
 
-  /* COMPASS acronym — 2 col */
-  .acronym-grid { grid-template-columns: 1fr 1fr; }
-  .acronym-grid .acronym-letter:nth-child(2) { border-right: none; }
-  .acronym-grid .acronym-letter:nth-child(4) { border-right: none; }
-  .a-letter { font-size: 2rem; }
+  /* COMPASS acronym — 3 col on phone (7 items → 3+3+1) */
+  .acronym-grid { grid-template-columns: repeat(3, 1fr); }
+  .acronym-grid .acronym-letter { border-right: 1px solid var(--sky-mid); }
+  .acronym-grid .acronym-letter:nth-child(3),
+  .acronym-grid .acronym-letter:nth-child(6),
+  .acronym-grid .acronym-letter:last-child { border-right: none; }
+  .a-letter { font-size: 1.75rem; }
 
   /* Proof list */
   .proof-list { gap: 1rem; }
@@ -1211,7 +1217,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 <!-- ══ ACRONYM CALLOUT ══════════════════════════════════════════ -->
 <div class="acronym-band" aria-label="COMPASS stands for Community Outreach Management, Planning and Stakeholder Suite">
   <div class="container">
-    <div class="acronym-grid" style="grid-template-columns: repeat(7,1fr)">
+    <div class="acronym-grid">
       <div class="acronym-letter">
         <div class="a-letter">C</div>
         <div class="a-word">Community</div>
