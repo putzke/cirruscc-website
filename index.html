@@ -756,6 +756,9 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   background: var(--sky);
   animation: pulse-badge 2s ease-in-out infinite;
 }
+.feat-badge--soon {
+  background: #2a7d4f;
+}
 @keyframes pulse-badge {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
@@ -1373,8 +1376,14 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
       <div class="feat-card feat-card--coming" role="listitem">
         <div class="feat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.89a16 16 0 0 0 6.13 6.13l.86-.86a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-        <h3 class="feat-title">Hotline voicemail transcription<br><span class="feat-badge" style="margin-left:0;margin-top:4px">In development</span></h3>
-        <p class="feat-desc">Project hotline voicemails automatically transcribed and logged as interaction records — with stakeholder matching, subject tagging and follow-up flagging. Vendor not yet chosen.</p>
+        <h3 class="feat-title">Phone hotline transcription<br><span class="feat-badge feat-badge--soon" style="margin-left:0;margin-top:4px">Coming soon</span></h3>
+        <p class="feat-desc">Calls to your project hotline are automatically transcribed and logged as interaction records — no manual entry. Stakeholder matching, subject tagging and follow-up flagging happen at the moment the call ends. A team member reviews and approves before the record is final.</p>
+      </div>
+
+      <div class="feat-card feat-card--coming" role="listitem">
+        <div class="feat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="12" y1="7" x2="12" y2="13"/></svg></div>
+        <h3 class="feat-title">Two-way conversation transcription<br><span class="feat-badge" style="margin-left:0;margin-top:4px">Planned</span></h3>
+        <p class="feat-desc">A later phase that extends transcription to full two-way calls — capturing both sides of the conversation and structuring the exchange as an interaction record. The same review-before-save workflow applies.</p>
       </div>
 
     </div>
