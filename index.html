@@ -614,12 +614,10 @@ footer {
   .who-grid { grid-template-columns: 1fr; }
 
   /* COMPASS acronym — 3 col on phone (7 items → 3+3+1) */
-  .acronym-grid { grid-template-columns: repeat(4, 1fr); }
-  .acronym-grid .acronym-letter { border-right: 1px solid var(--sky-mid); }
-  .acronym-grid .acronym-letter:nth-child(4),
-  .acronym-grid .acronym-letter:nth-child(7),
-  .acronym-grid .acronym-letter:last-child { border-right: none; }
-  .a-letter { font-size: 1.75rem; }
+  .acronym-grid { grid-template-columns: repeat(7, 1fr); }
+  .acronym-letter { padding: 0.75rem 0.2rem; }
+  .a-letter { font-size: 1.4rem; }
+  .a-word { font-size: 9px; }
 
   /* Proof list */
   .proof-list { gap: 1rem; }
